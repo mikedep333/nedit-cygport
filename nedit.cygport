@@ -31,6 +31,10 @@ PATCH_URI="
 src_compile() {
 	lndirs
 	cd ${B}
+	# The last version of Motif that NEdit 5.6 officially supports is 2.3,
+	# but Cygwin (like most major Linux distros) provides the current 2.3.x
+	# micro release (currently 2.3.4.)
+	# This prevents util/check_lin_tif.c from stopping you from building.
 	export CFLAGS="$CFLAGS -DBUILD_UNTESTED_NEDIT"
 	cygmake cygwin
 }
