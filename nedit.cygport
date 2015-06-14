@@ -1,0 +1,39 @@
+NAME="nedit"
+VERSION=5.5
+RELEASE=6
+CATEGORY="Editors"
+SUMMARY="Motif multi-purpose text editor"
+DESCRIPTION="NEdit is a multi-purpose text editor for the X Window System,
+which combines a standard, easy to use, graphical user interface with the
+thorough functionality and stability required by users who edit text eight
+hours a day. It provides intensive support for development in a wide variety
+of languages, text processors, and other tools, but at the same time can be
+used productively by just about anyone who needs to edit text."
+HOMEPAGE="http://www.nedit.org/"
+SRC_URI="mirror://sourceforge/nedit/${P}-src.tar.bz2
+         nedit.xpm"
+PATCH_URI="
+	mirror://portage/app-editors/${PN}/files/${P}-argbvisuals.patch
+	mirror://portage/app-editors/${PN}/files/${P}-motif23.patch
+	5.5-modular-x11.patch
+"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake cygwin
+}
+
+src_install() {
+	cd ${B}
+	dobin source/nedit.exe
+	newbin source/nc.exe nedit-nc.exe
+
+	newman doc/nedit.man nedit.1
+	newman doc/nc.man nedit-nc.1
+
+	make_desktop_entry nedit NEdit nedit "Utility;TextEditor;Motif"
+	doicon nedit.xpm
+}
+DOCS="ReleaseNotes doc/*.txt doc/nedit.doc"
+HTMLDOCS="doc/html/*"

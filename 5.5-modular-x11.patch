@@ -1,0 +1,14 @@
+--- origsrc/nedit-5.5/makefiles/Makefile.cygwin	2004-01-12 11:31:34.000000000 -0600
++++ src/nedit-5.5/makefiles/Makefile.cygwin	2008-11-03 21:35:32.753555200 -0600
+@@ -10,9 +10,9 @@
+ # To test if the Motif library exports the runtime version
+ # add -DHAVE__XMVERSIONSTRING to CFLAGS
+ #
+-CFLAGS=-O -I/usr/X11R6/include -DDONT_HAVE_GLOB -DCYGWIN -DUSE_DIRENT -DUSE_LPR_PRINT_CMD -DNO_XMIM
++CFLAGS+= -DCYGWIN -DUSE_DIRENT -DUSE_LPR_PRINT_CMD
+ ARFLAGS=-urs
+-LIBS= -L/usr/X11R6/lib -lXm -lXpm -lXext -lXt -lSM -lICE -lX11
++LIBS= -lXm -lXt -lX11
+ 
+ include Makefile.common
+ 
