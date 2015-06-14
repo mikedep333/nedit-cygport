@@ -1,6 +1,6 @@
 NAME="nedit"
-VERSION=5.5
-RELEASE=6
+VERSION=5.6
+RELEASE=1
 CATEGORY="Editors"
 SUMMARY="Motif multi-purpose text editor"
 DESCRIPTION="NEdit is a multi-purpose text editor for the X Window System,
@@ -9,18 +9,29 @@ thorough functionality and stability required by users who edit text eight
 hours a day. It provides intensive support for development in a wide variety
 of languages, text processors, and other tools, but at the same time can be
 used productively by just about anyone who needs to edit text."
+DEPEND="libXm-devel"
 HOMEPAGE="http://www.nedit.org/"
-SRC_URI="mirror://sourceforge/nedit/${P}-src.tar.bz2
+SRC_URI="mirror://sourceforge/nedit/nedit-source/${P}a-src.tar.gz
          nedit.xpm"
+# Patches from debian's version: 5.6a-2
+# Except for: https://anonscm.debian.org/cgit/collab-maint/nedit.git/tree/debian/patches/allow_reproducible_builds.patch
 PATCH_URI="
-	mirror://portage/app-editors/${PN}/files/${P}-argbvisuals.patch
-	mirror://portage/app-editors/${PN}/files/${P}-motif23.patch
 	5.5-modular-x11.patch
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/40_Pointer_to_Integer.patch?id=2cd5f1360133553369c4c452be344279758ae38d
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/50_ChangeNCinMan.patch?id=9764497403c36ed5b6a5c33e0ffbf0b524f990da
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/90_build_no_ask.patch?id=ce18e27ebd01c8b7bda25d3b4572a173a644eb46
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/92_format_string.patch?id=2cd5f1360133553369c4c452be344279758ae38d
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/fix_typo_in_help.patch?id=a7e91d06136fc761ed0d8887eeccc795d44e2457
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/language-mode-detection.patch?id=2cd5f1360133553369c4c452be344279758ae38d
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/multiple-tabrows.patch?id=798a7fb0d8f938a5655d3f56ed815e466e1367c4
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/show-filename.patch?id=e349179ebd0bd6f548bd71851789dca15e4a7d18
+	https://anonscm.debian.org/cgit/collab-maint/nedit.git/plain/debian/patches/drag-move-v1_5.patch?id=2cd5f1360133553369c4c452be344279758ae38d
 "
 
 src_compile() {
 	lndirs
 	cd ${B}
+	export CFLAGS="$CFLAGS -DBUILD_UNTESTED_NEDIT"
 	cygmake cygwin
 }
 
